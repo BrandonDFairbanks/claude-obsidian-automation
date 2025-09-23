@@ -1,0 +1,10 @@
+{
+  "name": "obsidian-mcp-server",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "MCP server for automating structured note creation in Obsidian via Claude Desktop",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "latest",
+    "dotenv": "^16.0.0"
+  }
+}
