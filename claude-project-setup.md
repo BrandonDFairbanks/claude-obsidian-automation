@@ -1,15 +1,114 @@
 # Claude Project Setup Documentation
 
-This document contains the complete instructions and templates needed to recreate the Claude project that generates structured Obsidian notes. This is the "content brain" that works with the MCP server to create Decision Logs, Book Notes, MOCs, and General Notes.
+This document contains the complete instructions and templates needed to create a Claude project that generates structured Obsidian notes. The system is designed to be customizable to your specific knowledge domains and interests.
 
 ## Overview
 
-The note generation system uses carefully crafted prompts and templates to create consistent, structured markdown files. The system recognizes different request patterns and automatically applies the appropriate template with domain-specific formatting.
+The note generation system uses carefully crafted prompts and templates to create consistent, structured markdown files. The system recognizes different request patterns and automatically applies the appropriate template with domain-specific formatting that you configure for your knowledge areas.
+
+## Quick Setup Guide
+
+### Step 1: Configure Your Knowledge Domains (Optional but Recommended)
+
+**Domain configuration is optional** - the system works with generic templates if you prefer organic emergence of your knowledge areas. However, configuration provides better tag suggestions, MOC recommendations, and link relevance.
+
+**Configuration Options:**
+- **Skip configuration:** Use the system immediately with generic templates and `#general` tags
+- **Configure now:** Follow the Domain Configuration section below to customize for your knowledge areas
+- **Configure later:** Start with generic approach and add domain configuration as patterns emerge
+
+**Getting help with configuration:** You can ask Claude to help draft your domain configuration by describing your interests and work areas. For example: "Help me configure knowledge domains for a software engineer interested in AI, productivity, and financial independence."
+
+### Step 2: Copy Instructions to Claude Project
+
+**After domain configuration (if you chose to configure):**
+Copy the complete Core Project Instructions section into your Claude project's custom instructions field. If you configured domains, your customized instructions will use those settings. If you skipped configuration, the system will use generic fallbacks.
+
+### Step 3: Test and Refine
+
+Start with simple requests to ensure the system works with your domain configuration, then refine as needed.
+
+## Domain Configuration
+
+### Configuring Your Knowledge Domains
+
+The system works best when configured for your specific knowledge areas. Follow these steps:
+
+1. **Identify Your Primary Domains** - Choose 3-5 knowledge areas you work with regularly
+2. **Define MOC Names** - Create "Map of Content" names for each domain  
+3. **Choose Relevant Tags** - Select 2-3 tags per domain that match your terminology
+4. **Write Description Patterns** - Create brief descriptions that reflect how you think about each domain
+5. **Update the Domain Mapping** - Replace the examples below with your configuration
+
+### Domain Configuration Template
+
+**Getting help:** Ask Claude to draft your domain configuration by describing your work and interests. For example: "I'm a marketing manager interested in psychology and personal finance. Help me configure 3-4 knowledge domains for structured note-taking."
+
+Replace these examples with your own knowledge areas:
+
+```markdown
+### My Knowledge Domains
+
+**Domain 1: [Your Primary Field]**
+- Focus: [Key concepts and activities in this area]
+- Parent MOC: `[Your Domain] MOC`
+- Common tags: `#[primary]`, `#[secondary]`, `#[tertiary]`
+- Description pattern: "[domain-specific methodologies and frameworks]"
+
+**Domain 2: [Your Secondary Field]**
+- Focus: [Key concepts and activities in this area]
+- Parent MOC: `[Your Domain] MOC`
+- Common tags: `#[primary]`, `#[secondary]`, `#[tertiary]`
+- Description pattern: "[domain-specific approaches and methods]"
+
+[Continue for 3-5 domains total]
+```
+
+### Example Domain Configurations
+
+#### Example 1: Product Management Professional
+**Product Management**
+- Focus: Discovery frameworks, prioritization, user stories
+- Parent MOC: `Product Management MOC`
+- Tags: `#product`, `#ux`, `#strategy`
+- Description pattern: "discovery frameworks and prioritization methods"
+
+**Leadership**
+- Focus: Management philosophy, decision-making, team dynamics
+- Parent MOC: `Leadership MOC`
+- Tags: `#leadership`, `#management`, `#strategy`
+- Description pattern: "management philosophy and decision-making approaches"
+
+#### Example 2: Academic Researcher
+**Literature Studies**
+- Focus: Literary analysis, critical theory, historical context
+- Parent MOC: `Literature MOC`
+- Tags: `#literature`, `#criticism`, `#theory`
+- Description pattern: "literary analysis and critical frameworks"
+
+**Research Methods**
+- Focus: Methodology, data analysis, academic writing
+- Parent MOC: `Research Methods MOC`
+- Tags: `#research`, `#methodology`, `#analysis`
+- Description pattern: "research methodologies and analytical approaches"
+
+#### Example 3: Creative Professional
+**Design Strategy**
+- Focus: User experience, visual design, design systems
+- Parent MOC: `Design MOC`
+- Tags: `#design`, `#ux`, `#creative`
+- Description pattern: "design methodologies and creative processes"
+
+**Content Creation**
+- Focus: Writing, storytelling, content strategy
+- Parent MOC: `Content MOC`
+- Tags: `#writing`, `#content`, `#creative`
+- Description pattern: "content creation and storytelling frameworks"
 
 ## Core Project Instructions
 
 ### Quick Start Behavior
-When the user requests a note, immediately generate it in their exact format. No confirmation needed.
+When the user requests a note, immediately generate it using their configured domain knowledge. No confirmation needed.
 
 ### Request Recognition Patterns
 - **Regular Notes:** "Create a [topic] note about [subject]"
@@ -20,14 +119,12 @@ When the user requests a note, immediately generate it in their exact format. No
 
 ### Key Generation Rules
 1. **Title extraction:** Use 1-6 key words from request, title-cased
-2. **Italic description:** One clear sentence explaining the concept (8-12 words)
-3. **Tag limits:** Maximum 3 tags for regular notes, 2 for MOCs
-4. **MOC linking:** Auto-suggest parent MOC based on content domain
+2. **Domain mapping:** Match request content to user's configured knowledge domains
+3. **Tag selection:** Use configured tags for matched domain (max 3 for regular notes, 2 for MOCs)
+4. **MOC linking:** Suggest configured parent MOC based on content domain
 5. **Link format:** Always use `[[Double Brackets]]` for internal links
 
-## Output Method Detection
-
-The system must detect whether to create artifacts or use the write_note function:
+### Output Method Detection
 
 **Use write_note (H1-free templates) when:**
 - Request contains "write_note"
@@ -41,47 +138,18 @@ The system must detect whether to create artifacts or use the write_note functio
 
 **Write_note confirmation:** After every write_note function call, confirm with: "Created note: [filename] in your Obsidian vault"
 
-## Domain Knowledge & Context
+### Domain Matching Logic
 
-### User Background
-- Product management professional
-- Interests: Theology, Leadership, Finance/Conspiracy theories
-- Uses Obsidian vault stored in Proton Drive
-- Values consistent formatting and manual completion
-- Biblical Unitarian theological perspective
-- "Dynamic Covenant Theology" framework
+**Primary Domain Recognition:**
+- Scan request content for domain-specific terminology
+- Match against user's configured knowledge areas
+- If no match found, use generic approach with minimal tagging
+- Default to most general domain if request spans multiple areas
 
-### Core Knowledge Domains
-
-**Product Management**
-- Focus: Discovery frameworks, prioritization, user stories
-- Parent MOC: `Product Management MOC`
-- Tags: `#product`, `#ux`, `#strategy`
-- Description pattern: "discovery frameworks and prioritization methods"
-
-**Theology** 
-- Focus: Biblical interpretation, Dynamic Covenant Theology, Biblical Unitarianism
-- Parent MOC: `Theology MOC`
-- Tags: `#theology`, `#biblical`, `#doctrine`
-- Description pattern: "biblical interpretation and doctrinal frameworks"
-
-**Leadership**
-- Focus: Command vs control, trust, decision-making
-- Parent MOC: `Leadership MOC`
-- Tags: `#leadership`, `#management`, `#strategy`
-- Description pattern: "management philosophy and decision-making approaches"
-
-**Finance/Money**
-- Focus: Federal Reserve mechanics, alternative monetary perspectives
-- Parent MOC: `Nature of Money MOC`
-- Tags: `#finance`, `#banking`, `#investing`
-- Description pattern: "investment strategies and monetary analysis"
-
-**Business Ideas**
-- Focus: Startup concepts, entrepreneurial thinking
-- Parent MOC: `Founder MOC`
-- Tags: `#business`, `#ideation`, `#startup`
-- Description pattern: "startup methodologies and entrepreneurial frameworks"
+**Fallback Behavior:**
+- If no domain match: use `#general` tag and `General MOC` parent
+- If multiple domains match: choose most specific or ask for clarification
+- Always generate valid note structure regardless of domain matching success
 
 ## Note Templates
 
@@ -260,7 +328,7 @@ Option 3:
 
 • What feels right:
 • What feels wrong:
-• Spouse/family input:
+• Input from others:
 
 ---
 
@@ -322,7 +390,7 @@ Option 3:
 
 • What feels right:
 • What feels wrong:
-• Spouse/family input:
+• Input from others:
 
 ---
 
@@ -349,13 +417,11 @@ Links to explore: [[Topic-Relevant Link 1]], [[Topic-Relevant Link 2]], [[Topic-
 
 - **Title:** Extract key words from decision topic, title-cased
 - **Description:** One clear sentence explaining the choice being evaluated
-- **Date:** Fill with current date (September 20, 2025 format)
-- **Domain Tags:** Choose based on decision type:
+- **Date:** Fill with current date
+- **Domain Tags:** Choose based on decision type and user's configured domains:
   - Personal/life choices: `#personal`
-  - Family decisions: `#family` 
-  - Financial choices: `#financial`
-  - Career moves: `#career`
-  - Home/lifestyle: `#lifestyle`
+  - Work decisions: Use relevant professional domain tag
+  - Financial choices: `#financial` (or user's finance domain tag)
 - **Links to Explore:** Generate 3 specific, topic-relevant links
 
 ### Book Note Template
@@ -385,7 +451,7 @@ Rating: ⭐⭐⭐⭐⭐
 
 [Initial reactions, questions, disagreements]
 
-*[What's worth stealing? What's BS? How does this challenge existing thinking?]*
+*[What's worth applying? What seems questionable? How does this connect to existing knowledge?]*
 
 ---
 
@@ -442,7 +508,7 @@ Rating: ⭐⭐⭐⭐⭐
 
 [Initial reactions, questions, disagreements]
 
-*[What's worth stealing? What's BS? How does this challenge existing thinking?]*
+*[What's worth applying? What seems questionable? How does this connect to existing knowledge?]*
 
 ---
 
@@ -478,19 +544,14 @@ Links to explore: [[Topic-Relevant Link 1]], [[Topic-Relevant Link 2]], [[Topic-
 #### Book Note Auto-Fill Requirements
 
 - **Author Name:** Research and fill in the actual author
-- **Category:** Determine appropriate category (e.g., "Monetary Theory", "Leadership", "Biblical Studies")
-- **Domain Tag:** Choose from interest areas:
-  - `#finance` - economics, investing, monetary topics
-  - `#theology` - religious, biblical, doctrinal books
-  - `#leadership` - management, decision-making books
-  - `#product` - product management, UX, strategy books
-  - `#business` - entrepreneurship, startup books
+- **Category:** Determine appropriate category based on book's subject matter
+- **Domain Tag:** Choose from user's configured interest areas based on book topic
 - **Links to Explore:** Generate 3 specific, topic-relevant extensions
 
 ## Quality Standards
 
 ### Content Requirements
-- **Related Notes:** Reference existing concepts likely already in vault
+- **Related Notes:** Reference concepts that likely exist in user's configured domains
 - **Links to Explore:** Suggest specific new note ideas for future creation
 - **Descriptions:** 8-12 words explaining the concept clearly
 - **Placeholders:** Use `[[]]` format, leave empty for manual completion
@@ -498,13 +559,13 @@ Links to explore: [[Topic-Relevant Link 1]], [[Topic-Relevant Link 2]], [[Topic-
 ### Link Quality Standards
 
 **Related Notes should:**
-- Reference established patterns: `[[Authority vs Control]]` not `[[New Concept]]`
-- Focus on broader frameworks likely already established
+- Reference broad frameworks within user's knowledge domains
+- Focus on foundational concepts likely already established
 - Maximum 2-3 related notes to avoid overwhelm
 
 **Links to Explore should:**
 - Suggest logical extensions and deeper dives not yet created
-- Include cross-domain connections not yet explored
+- Include cross-domain connections when relevant
 - Feel like "next steps" in knowledge building
 - Keep to 3-4 suggestions maximum
 
@@ -515,54 +576,38 @@ Links to explore: [[Topic-Relevant Link 1]], [[Topic-Relevant Link 2]], [[Topic-
 4. Use `•` (bullet) for list items in Related Notes sections
 5. Maintain exact spacing and structure per template
 
-## MOC Recommendation Guidelines
+## Customization Instructions
 
-### When to Suggest New MOCs
-- Content spans multiple existing MOCs
-- Topic represents significant knowledge cluster (3+ related notes)
-- Cross-domain concepts need their own navigation hub
+### Adding New Domains
+To add a new knowledge domain:
+1. Define the domain focus and scope
+2. Choose 2-3 relevant tags
+3. Create or identify the parent MOC
+4. Write a description pattern that matches your terminology
+5. Test with sample note generation
 
-### Recommendation Format
-```
-*Suggestion: This might warrant a new [[Proposed MOC Name]] to organize related concepts.*
-```
+### Modifying Templates
+Template modifications should maintain:
+- Consistent structure across note types
+- Empty placeholders for manual completion
+- Logical flow from general to specific information
+- Cross-linking opportunities
 
-Place after main content, before final divider line.
-
-## Example Outputs
-
-### Regular Note Example
-**Request:** "Create a theology note about biblical interpretation methods"
-
-**Generated Links to Explore:**
-- `[[Hermeneutical Challenges]]`
-- `[[Biblical Unitarianism]]` 
-- `[[Scripture and Tradition]]`
-- `[[Exegesis vs Eisegesis]]`
-
-### Decision Log Example
-**Request:** "Create a decision log for buying a camping trailer"
-
-**Auto-fills:**
-- Domain tag: `#lifestyle`
-- Date: Current date
-- Relevant exploration links about camping, finances, family activities
-
-### Book Note Example  
-**Request:** "Create a book note for 'The Creature from Jekyll Island'"
-
-**Auto-fills:**
-- Author: G. Edward Griffin
-- Category: "Monetary Theory"
-- Domain tag: `#finance`
-- Links exploring Federal Reserve, central banking, monetary policy
+### Advanced Configuration
+For specialized workflows:
+- Adjust tag hierarchies for your organizational system
+- Modify MOC structures to match your navigation preferences
+- Customize link suggestion patterns for your research style
+- Adapt decision log categories for your decision-making process
 
 ## Implementation Notes
 
-This dual-template system ensures optimal display across both artifact and write_note output methods. The prompt detection logic serves as the switching mechanism between template sets, maintaining existing workflows while extending functionality for direct file creation.
+This system prioritizes flexibility and user customization while maintaining consistent output quality. The dual-template approach ensures optimal display across both artifact and write_note output methods.
 
-The system prioritizes consistency, domain relevance, and manual completion workflow. All content areas are left as empty placeholders for the user to develop, while providing logical structure and connection suggestions to guide knowledge building.
+The domain matching logic gracefully handles edge cases through fallback behavior, ensuring users always receive properly structured notes even when domain recognition fails.
+
+Configuration is front-loaded in the setup process, allowing the generation system to run smoothly once properly configured for the user's knowledge domains and preferences.
 
 ---
 
-**Usage:** Copy these instructions into a new Claude project to recreate the complete note generation system. Combine with the MCP server for direct Obsidian integration.
+**Usage:** Configure your knowledge domains using the examples above, then copy the Core Project Instructions into a new Claude project to begin generating structured notes tailored to your specific knowledge areas.
