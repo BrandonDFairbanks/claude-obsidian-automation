@@ -1,4 +1,4 @@
-# obsidian-mcp-server
+# claude-obsidian-automation
 
 MCP server for automating structured note creation in Obsidian via Claude Desktop
 
