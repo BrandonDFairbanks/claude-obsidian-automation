@@ -1,12 +1,25 @@
-# claude-obsidian-automation
+# obsidian-mcp-server
 
-MCP server for automating structured note creation in Obsidian via Claude Desktop
+**Transform Claude from a chat tool into an intelligent agent for your Obsidian vault.**
+
+Instead of copying and pasting from Claude's artifacts, get structured notes written directly to your knowledge system with smart templates, domain knowledge, and automated formatting.
+
+## Why This Feels Agentic
+
+On its own, Claude can only hand you artifacts you copy-paste. On its own, the MCP server can only write files you explicitly tell it to. But together, they act like a lightweight "agent" inside your Obsidian vault: Claude detects the type of note you want, applies the right template, adds tags/links, and then the MCP server writes it directly into your vault. The result: structured notes, no copy-paste, and smart suggestions that make Claude feel like a vault-native collaborator.
+
+## Quick Start
+
+**Want to try it in 10 minutes?** → [Quickstart Guide](QUICKSTART.md)
+
+**Need the full setup?** → Continue reading below
+
+---
 
 ## Overview
 
-This Model Context Protocol (MCP) server enables Claude Desktop to create structured markdown notes directly in your Obsidian vault. Instead of copying and pasting from Claude's artifacts, notes are generated automatically in your knowledge management system.
+This Model Context Protocol (MCP) server enables Claude Desktop to create structured markdown notes directly in your Obsidian vault. The system consists of two components working together:
 
-The system consists of two components:
 1. **MCP Server** (this repository) - Handles direct file writing to your Obsidian vault
 2. **Claude Project** - Contains the prompt engineering and templates for structured content generation
 
@@ -231,6 +244,7 @@ obsidian-mcp-server/
 ├── .env                     # Your local configuration (not tracked)
 ├── .env.example             # Template for environment variables
 ├── claude-project-setup.md  # Complete Claude project instructions
+├── QUICKSTART.md            # 10-minute setup guide
 └── README.md                # This file
 ```
 
@@ -257,9 +271,10 @@ MIT License - see LICENSE file for details.
 
 For issues or questions:
 1. Check the troubleshooting section above
-2. Verify both MCP server and Claude project are properly configured
-3. Create an issue on GitHub with details about your setup
-4. Ensure your environment matches the prerequisites
+2. Try the [Quickstart Guide](QUICKSTART.md) for a simplified setup
+3. Verify both MCP server and Claude project are properly configured
+4. Create an issue on GitHub with details about your setup
+5. Ensure your environment matches the prerequisites
 
 ---
 
