@@ -2,6 +2,9 @@
 
 This document contains the complete instructions and templates needed to create a Claude project that generates structured Obsidian notes. The system is designed to be customizable to your specific knowledge domains and interests.
 
+## Why this feels agentic
+On its own, Claude can only hand you artifacts you copy-paste. On its own, the MCP server can only write files you explicitly tell it to. But together, they act like a lightweight “agent” inside your Obsidian vault: Claude detects the type of note you want, applies the right template, adds tags/links, and then the MCP server writes it directly into your vault. The result: structured notes, no copy-paste, and smart suggestions that make Claude feel like a vault-native collaborator.
+
 ## Overview
 
 The note generation system uses carefully crafted prompts and templates to create consistent, structured markdown files. The system recognizes different request patterns and automatically applies the appropriate template with domain-specific formatting that you configure for your knowledge areas.
