@@ -14,7 +14,7 @@ Claude: [generates structured content] → [writes directly to vault]
 Result: "Created note: Laptop Decision Log.md in your Obsidian vault"
 ```
 
-Your note appears instantly in Obsidian with proper structure, tags, and empty sections ready to fill.
+Your note appears instantly in Obsidian with proper structure, tags, and empty sections ready to fill - Claude automatically detected the note type and applied smart formatting.
 
 ## Prerequisites (2 minutes)
 
